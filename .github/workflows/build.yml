@@ -87,7 +87,7 @@ jobs:
           name: pigallery2-release
           path: release
 
- build-docker-amd64arm64:
+  build-docker-amd64arm64:
     runs-on: [ ubuntu-latest ]
     needs: [ create-release ]
     strategy:
@@ -150,7 +150,8 @@ jobs:
             bpatrik/pigallery2:nightly-${{ matrix.container }}
             bpatrik/pigallery2:${{ steps.vars.outputs.tag}}-${{matrix.container}}
             bpatrik/pigallery2:latest-${{matrix.container}}
- build-docker-all-platforms:
+
+  build-docker-all-platforms:
     runs-on: [ ubuntu-latest ]
     needs: [ create-release ]
     strategy:
