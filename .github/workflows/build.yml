@@ -6,8 +6,7 @@ on:
       - experimental
   push:
     branches:
-      - master
-      - experimental
+      - '**'
     tags:
       - '*.*'
 
@@ -121,7 +120,7 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       -
-        name: Test build on Pull request
+        name: Test build on Pull request and test branches
         if: ${{ startsWith(steps.vars.outputs.type , 'head') &&  ((github.event.issue.pull_request && github.ref == 'refs/heads/master') || github.ref != 'refs/heads/master') }}
         uses: docker/build-push-action@v2
         with:
@@ -159,5 +158,5 @@ jobs:
           push: true
           tags: |
             bpatrik/pigallery2:nightly-${{ matrix.container }}
-            bpatrik/pigallery2:${{ steps.vars.outputs.tag }}-${{ matrix.container == 'debian-buster' && '' || matrix.container }}
-            bpatrik/pigallery2:latest-${{ matrix.container == 'debian-buster' && '' || matrix.container }}
+            bpatrik/pigallery2:${{ matrix.container == 'debian-buster' && steps.vars.outputs.tag  || format('{0}-{1}',steps.vars.outputs.tag,matrix.container) }}
+            bpatrik/pigallery2:${{ matrix.container == 'debian-buster' && 'latest' || format('latest-{0}',matrix.container) }}
