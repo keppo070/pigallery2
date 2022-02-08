@@ -48,7 +48,7 @@
     "locale": "0.1.0",
     "node-geocoder": "3.28.0",
     "reflect-metadata": "0.1.13",
-    "sharp": "0.30.0",
+    "sharp": "0.29.3",
     "sqlite3": "5.0.2",
     "ts-exif-parser": "0.2.2",
     "ts-node-iptc": "1.0.11",

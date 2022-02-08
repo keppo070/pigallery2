@@ -92,7 +92,7 @@ jobs:
     needs: [ create-release ]
     strategy:
       matrix:
-        container: [alpine, debian-stretch ]
+        container: [ debian-stretch ]
 
     steps:
       - name: Set tag
@@ -156,7 +156,7 @@ jobs:
     needs: [ create-release ]
     strategy:
       matrix:
-        container: [ debian-buster ]
+        container: [alpine, debian-buster ]
 
     steps:
       - name: Set tag
@@ -212,5 +212,5 @@ jobs:
           push: true
           tags: |
             bpatrik/pigallery2:nightly-${{ matrix.container }}
-            bpatrik/pigallery2:${{ steps.vars.outputs.tag }}
-            bpatrik/pigallery2:latest
+            bpatrik/pigallery2:${{ matrix.container == 'debian-buster' && steps.vars.outputs.tag  || format('{0}-{1}',steps.vars.outputs.tag,matrix.container) }}
+            bpatrik/pigallery2:${{ matrix.container == 'debian-buster' && 'latest' || format('latest-{0}',matrix.container) }}

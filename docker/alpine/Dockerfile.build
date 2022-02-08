@@ -2,7 +2,7 @@
 #-----------------------------------------
 FROM node:14-alpine3.15 AS builder
 RUN apk add --update-cache --repository https://alpine.global.ssl.fastly.net/alpine/v3.15/community/ \
-  python3 build-base sqlite-dev sqlite-libs vips-dev fftw-dev gcc g++ make libc6-compat && ln -snf /usr/bin/python3 /usr/bin/python
+  python3 build-base sqlite-dev sqlite-libs vips-dev vips fftw-dev gcc g++ make libc6-compat && ln -snf /usr/bin/python3 /usr/bin/python
 COPY pigallery2-release /app
 WORKDIR /app
 RUN npm install --unsafe-perm
